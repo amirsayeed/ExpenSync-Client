@@ -7,7 +7,7 @@ const RootLayout = () => {
     return (
         <div>
             <NavBar/>
-            <div className='max-w-[1500px] mx-auto'>
+            <div className='max-w-[1500px] mx-auto min-h-screen'>
                 <Outlet/>
             </div>
             <Footer/>
