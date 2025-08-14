@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
+import logo from '../../../assets/logo.png'
 const NavBar = () => {
     const links = <>
                     <li><Link to='/'>Home</Link></li>
@@ -16,14 +16,17 @@ const NavBar = () => {
             </div>
             <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-lg font-medium">
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-base font-medium">
                 {links}
             </ul>
             </div>
-            <a className="btn btn-ghost text-xl">ExpenSyc</a>
+            <div className='flex items-center gap-1'>
+                <img src={logo} alt="" className='w-10 h-10 object-cover' />
+                <h1 className='text-2xl font-bold'>ExpenSync</h1>
+            </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 text-lg font-medium">
+            <ul className="menu menu-horizontal px-1 text-base font-medium">
                 {links}
             </ul>
         </div>
