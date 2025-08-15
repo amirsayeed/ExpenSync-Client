@@ -45,13 +45,24 @@ const ShowExpense = () => {
     });
   };
 
+  const totalExpense = expenses.reduce((sum, exp) => sum + Number(exp.amount), 0);
 
   if (isLoading) return <Loading />;
   if (isError) return <p className="text-red-500">Error: {error.message}</p>;
 
   return (
-    <div className="px-4">
-      <h2 className="text-2xl font-semibold mb-4 text-center">All Expenses</h2>
+    <div className="my-10 px-4">
+      <h2 className="text-2xl font-semibold mb-4 text-center">My Expenses</h2>
+      <div className="flex justify-center">
+        <div className="card border border-[#2dcfc4] shadow-md mb-4">
+        <div className="card-body">
+          <h2 className="card-title text-lg">Total Expense</h2>
+          <p className="text-2xl font-bold text-[#2dcfc4]">
+            {totalExpense.toFixed(2)} Tk.
+          </p>
+        </div>
+        </div>
+      </div>
       <div className="overflow-x-auto w-full p-4">
         <table className="table w-full shadow-md">
           <thead>
