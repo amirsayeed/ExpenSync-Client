@@ -7,6 +7,7 @@ import AddExpense from "../pages/AddExpense/AddExpense";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
+import EditExpense from "../pages/EditExpense/EditExpense";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
         {
             path: 'addExpense',
             Component: AddExpense
+        },
+        {
+            path: 'editExpense/:id',
+            Component: EditExpense
         }
     ]
   },
