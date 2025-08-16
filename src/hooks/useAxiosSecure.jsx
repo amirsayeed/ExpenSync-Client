@@ -3,7 +3,7 @@ import React from 'react';
 import useAuth from './useAuth';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://expensync-server.onrender.com'
 })
 
 const useAxiosSecure = () => {
