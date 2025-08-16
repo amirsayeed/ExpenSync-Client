@@ -20,6 +20,7 @@ const NavBar = () => {
     const links = <>
                     <li><NavLink to='/'>Home</NavLink></li>
                     <li><NavLink to='/addExpense'>Add Expense</NavLink></li>
+                    <li><NavLink to='/expenseStats'>Expense Statistics</NavLink></li>
                   </>
     return (
     <div className='bg-base-200 sticky top-0 z-50 shadow-md'>
@@ -41,7 +42,7 @@ const NavBar = () => {
             </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 text-base font-medium">
+            <ul className="menu menu-horizontal px-1 text-sm font-semibold">
                 {links}
             </ul>
         </div>

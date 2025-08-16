@@ -29,7 +29,7 @@ const ExpensesByCategoryChart = () => {
     );
 
   return (
-    <div className="my-10 bg-base-100 rounded-lg overflow-x-auto">
+    <div className="my-10 bg-base-100 rounded-lg overflow-x-auto px-1">
       <h2 className="text-2xl font-semibold mb-4 text-center">
         Expenses by Category
       </h2>

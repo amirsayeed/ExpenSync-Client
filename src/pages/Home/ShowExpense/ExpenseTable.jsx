@@ -5,8 +5,8 @@ import { IoTrashBin } from "react-icons/io5";
 
 const ExpenseTable = ({ expenses, handleDelete }) => {
   return (
-    <div className="overflow-x-auto w-full p-4">
-      <table className="table w-full shadow-md">
+    <div className="overflow-x-auto w-full my-10">
+      <table className="table w-full border border-gray-200 rounded-lg shadow-lg text-center">
         <thead>
           <tr className="bg-base-200 text-base font-semibold">
             <th>#</th>
@@ -24,7 +24,7 @@ const ExpenseTable = ({ expenses, handleDelete }) => {
                 <td>{index + 1}</td>
                 <td>{expense.title}</td>
                 <td>{expense.amount} Tk.</td>
-                <td>{expense.category}</td>
+                <td className="badge bg-[#2dcfc4] text-white">{expense.category}</td>
                 <td>{format(new Date(expense.date), "dd MMM, yyyy")}</td>
                 <td className="flex gap-2 justify-center">
                   <Link

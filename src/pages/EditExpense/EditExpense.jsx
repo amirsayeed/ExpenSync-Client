@@ -68,7 +68,8 @@ const EditExpense = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="max-w-md mx-auto my-10 bg-base-100 border border-gray-300 p-6 rounded-lg shadow-md">
+    <div className="px-1 md:px-4">
+      <div className="max-w-md mx-auto my-10 bg-base-100 border border-gray-300 p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Edit Expense</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         
@@ -138,6 +139,7 @@ const EditExpense = () => {
           Update Expense
         </button>
       </form>
+    </div>
     </div>
   );
 };

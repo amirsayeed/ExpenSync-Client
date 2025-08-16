@@ -10,6 +10,7 @@ import Register from "../pages/Authentication/Register/Register";
 import EditExpense from "../pages/EditExpense/EditExpense";
 import PrivateRoute from "../routes/PrivateRoute";
 import ErrorPage from "../components/Shared/ErrorPage/ErrorPage";
+import ExpensesByCategoryChart from '../pages/ExpenseByCategoryChart/ExpenseByCategoryChart'
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
         {
             path: 'addExpense',
             Component: AddExpense
+        },
+        {
+            path: 'expenseStats',
+            Component: ExpensesByCategoryChart
         },
         {
             path: 'editExpense/:id',
