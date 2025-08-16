@@ -1,54 +1,73 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../components/Shared/Loading/Loading";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { format } from 'date-fns';
 import useAuth from "../../../hooks/useAuth";
-import { Link } from "react-router";
 import Swal from "sweetalert2";
 import TotalExpense from "./TotalExpense";
-import { FaEdit } from "react-icons/fa";
-import { IoTrashBin } from "react-icons/io5";
+import ExpenseTable from "./ExpenseTable";
+
+const categories = [
+  "All",
+  "Food",
+  "Transport",
+  "Shopping",
+  "Entertainment",
+  "Health",
+  "Education",
+  "Bills",
+  "Travel",
+  "Others",
+];
 
 const ShowExpense = () => {
   const axiosSecure = useAxiosSecure();
-  const {user} = useAuth();
+  const { user } = useAuth();
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   const { data: expenses = [], refetch, isLoading, isError, error } = useQuery({
-    queryKey: ["expenses"],
+    queryKey: ["expenses", selectedCategory],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/expenses?email=${user.email}`);
+      const categoryQuery = selectedCategory !== "All" ? `&category=${selectedCategory}` : "";
+      const res = await axiosSecure.get(
+        `/expenses?email=${user.email}${categoryQuery}`
+      );
       return res.data;
     },
-    enabled: !!user?.email 
+    enabled: !!user?.email,
   });
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'This expense will be permanently deleted.',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "This expense will be permanently deleted.",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           const res = await axiosSecure.delete(`/expenses/${id}`);
-          if (res.data?.deletedCount > 0) { 
-            Swal.fire('Deleted!', 'Expense has been deleted.', 'success');
+          if (res.data?.deletedCount > 0) {
+            Swal.fire("Deleted!", "Expense has been deleted.", "success");
             refetch();
           } else {
-            Swal.fire('Error', 'No expense was deleted.', 'error');
+            Swal.fire("Error", "No expense was deleted.", "error");
           }
         } catch (err) {
           console.error(err);
-          Swal.fire('Error', 'Failed to delete the expense.', 'error');
+          Swal.fire("Error", "Failed to delete the expense.", "error");
         }
       }
     });
   };
 
-  const totalExpense = expenses.reduce((sum, exp) => sum + Number(exp.amount), 0);
+  const totalExpense = expenses.reduce(
+    (sum, exp) => sum + Number(exp.amount),
+    0
+  );
 
   if (isLoading) return <Loading />;
   if (isError) return <p className="text-red-500">Error: {error.message}</p>;
@@ -56,52 +75,23 @@ const ShowExpense = () => {
   return (
     <div className="my-10 px-4">
       <h2 className="text-2xl font-semibold mb-4 text-center">My Expenses</h2>
-      <TotalExpense totalExpense={totalExpense}/>
-      <div className="overflow-x-auto w-full p-4">
-        <table className="table w-full shadow-md">
-          <thead>
-            <tr className="bg-base-200 text-base font-semibold">
-              <th>#</th>
-              <th>Title</th>
-              <th>Amount</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th className="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {expenses.length > 0 ? (
-              expenses.map((expense, index) => (
-                <tr key={expense._id}>
-                  <td>{index + 1}</td>
-                  <td>{expense.title}</td>
-                  <td>{expense.amount} Tk.</td>
-                  <td>{expense.category}</td>
-                  <td>
-                    {format(new Date(expense.date), 'dd MMM, yyyy')}
-                  </td>
-                  <td className="flex gap-2 justify-center">
-                    <Link to={`/editExpense/${expense._id}`} className="btn btn-sm flex bg-[#2dcfc4] text-white">
-                      <span>Edit</span>
-                      <span><FaEdit /></span>
-                    </Link>
-                    <button onClick={()=>handleDelete(expense._id)} className="btn btn-sm flex btn-error text-white">
-                      <span>Delete</span>
-                      <span><IoTrashBin /></span>
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="text-center p-4">
-                  No expenses found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <TotalExpense totalExpense={totalExpense} />
+
+      <div className="flex justify-end mb-2">
+        <select
+          className="select select-bordered w-40"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
       </div>
+
+      <ExpenseTable expenses={expenses} handleDelete={handleDelete} />
     </div>
   );
 };
