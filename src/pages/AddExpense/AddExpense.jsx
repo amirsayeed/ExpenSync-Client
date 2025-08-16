@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const categories = [
   "Food",
@@ -32,6 +33,7 @@ const AddExpense = () => {
   });
  const axiosSecure = useAxiosSecure();
  const {user} = useAuth();
+ const navigate = useNavigate();
 
  const onSubmit = async (data) => {
     const expenseData = {
@@ -50,6 +52,7 @@ const AddExpense = () => {
           confirmButtonColor: "#2dcfc4",
         });
         reset();
+        navigate('/');
       }
     } catch (error) {
       console.error(error);

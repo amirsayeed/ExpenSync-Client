@@ -33,6 +33,12 @@ const ExpensesByCategoryChart = () => {
       <h2 className="text-2xl font-semibold mb-4 text-center">
         Expenses by Category
       </h2>
+      {
+        data.length === 0 && 
+        <p className="text-center mt-10 text-red-600">
+            No Expenses made yet
+        </p>
+      }
       <div className="w-ful h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -52,7 +58,11 @@ const ExpensesByCategoryChart = () => {
                 />
               ))}
             </Pie>
-            <Tooltip 
+            <Tooltip
+                wrapperStyle={{ zIndex: 50 }}
+                contentStyle={{ backgroundColor: '#fff', borderRadius: '8px' }}
+                itemStyle={{ fontSize: '14px' }}
+                labelStyle={{ fontWeight: 'bold' }} 
                 formatter={(value) => [`${value} Tk`, "Expense"]}
              />
             <Legend verticalAlign="bottom" height={36} />

@@ -4,10 +4,11 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
 
-const {signUp,googleSignIn,setUser,updateUser} = useAuth();
+const {signUp,setUser,updateUser} = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const handleRegister = e =>{
@@ -45,17 +46,6 @@ const {signUp,googleSignIn,setUser,updateUser} = useAuth();
         })
     }
 
-    const handleGoogleLogin = () =>{
-        googleSignIn().then(result=>{
-            setUser(result.user);
-            toast.success("Registration successful!");
-            navigate('/');
-        })
-        .catch(error=>{
-            console.log(error);
-            toast(error.message);
-        })
-    }
 
     return (
          <>
@@ -99,10 +89,7 @@ const {signUp,googleSignIn,setUser,updateUser} = useAuth();
                     <span><FaUserPlus size={15} /></span>
                 </button>
             </form>
-            <div className="mt-2">
-                <button onClick={handleGoogleLogin} className="btn w-full bg-[#2dcfc4] text-white rounded-xl border-0">
-                <FcGoogle size={20}/> Login with Google</button>
-            </div>
+            <SocialLogin/>
         </div>
         </div>
         </>
