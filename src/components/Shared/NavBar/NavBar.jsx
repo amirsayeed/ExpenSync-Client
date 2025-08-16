@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
-import logo from '../../../assets/logo.png'
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import { LuLogIn, LuLogOut } from 'react-icons/lu';
 import { FaUserCircle } from 'react-icons/fa';
+import ExpenSyncLogo from '../ExpenSyncLogo/ExpenSyncLogo';
 const NavBar = () => {
     const {user, logOut} = useAuth();
 
@@ -36,10 +36,7 @@ const NavBar = () => {
                 {links}
             </ul>
             </div>
-            <div className='flex items-center gap-1'>
-                <img src={logo} alt="" className='w-10 h-10 object-cover' />
-                <h1 className='text-lg md:text-2xl font-bold'>ExpenSync</h1>
-            </div>
+            <ExpenSyncLogo/>
         </div>
         <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-sm font-semibold">
