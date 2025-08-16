@@ -1,6 +1,6 @@
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import { LuLogIn } from 'react-icons/lu';
@@ -9,6 +9,7 @@ import { LuLogIn } from 'react-icons/lu';
 const Login = () => {
     const {signIn,googleSignIn,setUser} = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogin = e =>{
         e.preventDefault();
@@ -19,7 +20,7 @@ const Login = () => {
         signIn(email,password).then(result=>{
             setUser(result.user);
             toast.success('Login successful');
-            navigate('/');
+            navigate(`${location?.state ? location.state : '/'}`);
         })
         .catch(error=>{
             console.log(error);

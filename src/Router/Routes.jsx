@@ -8,11 +8,12 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
 import EditExpense from "../pages/EditExpense/EditExpense";
+import PrivateRoute from "../routes/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: RootLayout,
+    element: <PrivateRoute><RootLayout/></PrivateRoute>,
     children: [
         {
             index: true,
